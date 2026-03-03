@@ -40,4 +40,4 @@ temp/
 *.tmp
 
 # Deployment
-deployment/
+deployment/summarized_conversations/

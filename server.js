@@ -8,6 +8,7 @@ const { expandedTests } = require('./src/modules/expandedTests');
 const { expandedTests2 } = require('./src/modules/expandedTests2');
 const { expandedTests3 } = require('./src/modules/expandedTests3');
 const { expandedTests4 } = require('./src/modules/expandedTests4');
+const { getAllOptimizationTests, getOptimizationTestsBySection } = require('./src/modules/expandedTestsOptimization');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -444,6 +445,87 @@ function generateChecklist(log) {
         });
     });
     
+    // Add all Optimization tests (600 tests - 100 per section)
+    log('Adding 600 optimization validation tests...');
+    log('Adding 100 file-level optimization tests...');
+    getOptimizationTestsBySection('file').forEach(test => {
+        checklistItems.push({
+            id: itemId++,
+            testId: test.id,
+            category: test.category,
+            type: 'optimization',
+            target: 'all',
+            description: test.description,
+            status: 'pending'
+        });
+    });
+    
+    log('Adding 100 line-level optimization tests...');
+    getOptimizationTestsBySection('line').forEach(test => {
+        checklistItems.push({
+            id: itemId++,
+            testId: test.id,
+            category: test.category,
+            type: 'optimization',
+            target: 'all',
+            description: test.description,
+            status: 'pending'
+        });
+    });
+    
+    log('Adding 100 semantic optimization tests...');
+    getOptimizationTestsBySection('semantic').forEach(test => {
+        checklistItems.push({
+            id: itemId++,
+            testId: test.id,
+            category: test.category,
+            type: 'optimization',
+            target: 'all',
+            description: test.description,
+            status: 'pending'
+        });
+    });
+    
+    log('Adding 100 performance optimization tests...');
+    getOptimizationTestsBySection('performance').forEach(test => {
+        checklistItems.push({
+            id: itemId++,
+            testId: test.id,
+            category: test.category,
+            type: 'optimization',
+            target: 'all',
+            description: test.description,
+            status: 'pending'
+        });
+    });
+    
+    log('Adding 100 security optimization tests...');
+    getOptimizationTestsBySection('security').forEach(test => {
+        checklistItems.push({
+            id: itemId++,
+            testId: test.id,
+            category: test.category,
+            type: 'optimization',
+            target: 'all',
+            description: test.description,
+            status: 'pending'
+        });
+    });
+    
+    log('Adding 100 architectural optimization tests...');
+    getOptimizationTestsBySection('architecture').forEach(test => {
+        checklistItems.push({
+            id: itemId++,
+            testId: test.id,
+            category: test.category,
+            type: 'optimization',
+            target: 'all',
+            description: test.description,
+            status: 'pending'
+        });
+    });
+    });
+    
     // Add file-specific validation for each file found
     log(`Adding file-specific tests for ${scanResults.files.length} files...`);
     scanResults.files.forEach(file => {
@@ -488,6 +570,7 @@ function generateChecklist(log) {
     log(`Test breakdown: 100 File-Level, 100 Line-Level, 100 Semantic, 100 Performance`);
     log(`                100 Security, 100 Architecture, 100 Documentation`);
     log(`                100 Configuration, 100 Error Handling, 100 Runtime`);
+    log(`                600 Optimization (100 each: File, Line, Semantic, Performance, Security, Architecture)`);
     log(`                ${scanResults.files.length} File-Specific, 8 GitHub Update`);
 }
 
@@ -645,8 +728,8 @@ app.get('/', (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-    console.log(`Self-Healing Website running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Self-Healing Website running on http://0.0.0.0:${PORT}`);
     console.log(`GitHub Token configured: ${!!githubToken}`);
 });
 

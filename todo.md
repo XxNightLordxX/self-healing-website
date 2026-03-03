@@ -47,5 +47,6 @@
 - [x] Create .gitignore file
 - [x] Add all files to git
 - [x] Create initial commit
-- [x] Push to GitHub storybook repository
+- [x] Create new self-healing-website repository
+- [x] Push to GitHub self-healing-website repository
 - [x] Verify deployment
